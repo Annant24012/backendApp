@@ -8,8 +8,13 @@ app.get("/", (req, res) => {
   return res.send("server is running");
 });
 
-connectDB();
-
-app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`server is running on port ${PORT}`);
+      console.log("database connected successfully");
+    });
+  })
+  .catch((error) => {
+    console.log("database not connected", error);
+  });
